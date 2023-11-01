@@ -1,0 +1,26 @@
+.createRebel {
+  color: cyan;
+}
+
+form {
+  font-size: 2rem;
+  text-align: justify;
+}
+
+.submitBtn {
+  background-color: red;
+  color: white;
+  padding: 10px;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+/*Change text in autofill textbox*/
+input:-webkit-autofill {
+  -webkit-text-fill-color: black !important;
+}

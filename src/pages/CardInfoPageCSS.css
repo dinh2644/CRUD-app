@@ -1,0 +1,37 @@
+.card {
+  width: 350px;
+  background: url("../assets/metal.jpg");
+  background-size: cover;
+  border: none;
+  transition: all 0.5s;
+}
+.btn {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+}
+
+.join {
+  font-size: 14px;
+  color: #6e6d68;
+  font-weight: bold;
+}
+
+.color-box-text {
+  opacity: 0;
+}
+
+.properties {
+  color: red;
+  font-size: 18px;
+}
+
+.crewmateProps {
+  color: white;
+}

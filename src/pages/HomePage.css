@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "FranklinGothicBookRegular", sans-serif;
+}
+
+.star-wars-header {
+  padding: 50px;
+}
+
+.opening-crawl {
+  color: #ffc62d;
+  font-size: 48px;
+  line-height: 1.5;
+}
