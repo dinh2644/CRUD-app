@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../client";
 import { toast } from "react-hot-toast";
 import "./createPage.css";
-import { useNavigate } from "react-router-dom";
 
 const CreatePage = () => {
-  const navigate = useNavigate();
   const [crew, setCrew] = useState({
     name: "",
     force_sensitive: false,
@@ -17,13 +15,6 @@ const CreatePage = () => {
   const [saberRoleDisabled, setSaberRoleDisabled] = useState(true);
   const [sexSelected, setSexSelected] = useState(true);
   const [roleSelected, setRoleSelected] = useState(true);
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  // check if form has been filled before enabling submit button
-  useEffect(() => {
-    const isFormFilled = Object.values(crew).every((value) => value !== "");
-    setIsFormValid(isFormFilled && !sexSelected && !roleSelected);
-  }, [crew, sexSelected, roleSelected]);
 
   //handle input changes
   const handleChange = (event) => {
@@ -50,9 +41,13 @@ const CreatePage = () => {
     if (name === "force_sensitive") {
       setSaberRoleDisabled(!checked);
       setCrew((prev) => {
+        const newRole = prev.role === "Saber Specialist" ? "" : prev.role;
+        if (newRole === "") {
+          setRoleSelected(true);
+        }
         return {
           ...prev,
-          role: "",
+          role: newRole,
         };
       });
     }
@@ -61,6 +56,19 @@ const CreatePage = () => {
   // handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (crew.age <= 0) {
+      toast.error("Age cannot be 0 or negative!");
+      return;
+    }
+    if (crew.name === "") {
+      toast.error("Name cannot be empty!");
+      return;
+    }
+    if (sexSelected || roleSelected) {
+      toast.error("Sex and role must be selected!");
+      return;
+    }
+
     const { error } = await supabase.from("Crew").insert([crew]);
     if (error) {
       console.log(error);
@@ -74,7 +82,7 @@ const CreatePage = () => {
         color: "#000000",
         sex: "",
       });
-      navigate("/barracks");
+      window.location = "/barracks";
     }
   };
 
@@ -186,7 +194,6 @@ const CreatePage = () => {
           value="Submit"
           className="submitBtn"
           onClick={handleSubmit}
-          disabled={!isFormValid}
           title="All fields must be filled"
         />
       </form>

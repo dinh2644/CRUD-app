@@ -2,8 +2,8 @@
   display: flex;
   position: fixed;
   flex-direction: column;
-  top: 200px;
-  left: 20px;
+  top: 100px;
+  right: 25px;
   width: fit-content;
   font-size: 1.5rem;
   color: white;

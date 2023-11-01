@@ -9,8 +9,8 @@ import four from "../assets/four.png";
 import five from "../assets/five.png";
 import six from "../assets/six.png";
 
-const Card = (props) => {
-  const [forceSensitive, setForceSensitive] = useState(props.force_sensitive);
+const Card = ({ data }) => {
+  const [forceSensitive, setForceSensitive] = useState(data.force_sensitive);
 
   const randomPic = () => {
     const pics = [one, two, three, four, five, six];
@@ -22,10 +22,10 @@ const Card = (props) => {
     <div
       className="Card"
       style={{
-        boxShadow: `rgba(0, 0, 0, 0.16) 0px 1px 4px, ${props.color} 0px 0px 0px 3px`,
+        boxShadow: `rgba(0, 0, 0, 0.16) 0px 1px 4px, ${data.color} 0px 0px 0px 3px`,
       }}
     >
-      <Link to={"/barracks/" + props.id}>
+      <Link to={`${data.id}`}>
         <img
           alt="View this crew"
           src={randomPic()}
@@ -35,7 +35,7 @@ const Card = (props) => {
           style={{ marginLeft: "35px", marginBottom: "10px" }}
         />
       </Link>
-      <Link to={"editRebel/" + props.id}>
+      <Link to={`editRebel/${data.id}`}>
         <img
           alt="Update this crew"
           src={more}
@@ -45,13 +45,13 @@ const Card = (props) => {
       </Link>
       <div className="info">
         <h4>
-          Name: <span className="infoProps">{props.name}</span>
+          Name: <span className="infoProps">{data.name}</span>
         </h4>
         <h5>
-          Age: <span className="infoProps">{props.age}</span>
+          Age: <span className="infoProps">{data.age}</span>
         </h5>
         <h5>
-          Sex: <span className="infoProps">{props.sex}</span>
+          Sex: <span className="infoProps">{data.sex}</span>
         </h5>
         <h5>
           Force sensitive:{" "}
@@ -60,7 +60,7 @@ const Card = (props) => {
           </span>{" "}
         </h5>
         <h5>
-          Role: <span className="infoProps">{props.role}</span>
+          Role: <span className="infoProps">{data.role}</span>
         </h5>
       </div>
     </div>

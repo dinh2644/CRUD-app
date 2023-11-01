@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../client";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import "./updatePage.css";
 
 const UpdatePage = ({ data }) => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const crewmate = data.find((item) => String(item.id) === String(id));
   const [saberRoleDisabled, setSaberRoleDisabled] = useState(true);
   const [sexSelected, setSexSelected] = useState(true);
   const [roleSelected, setRoleSelected] = useState(true);
-  const [isFormValid, setIsFormValid] = useState(false);
+
   // hold information for new updated inputs by user
   const [editedCrew, setEditedCrew] = useState({
     name: "",
@@ -22,14 +20,6 @@ const UpdatePage = ({ data }) => {
     color: "#000000",
     sex: "",
   });
-
-  // check if form has been filled before enabling submit button
-  useEffect(() => {
-    const isFormFilled = Object.values(editedCrew).every(
-      (value) => value !== ""
-    );
-    setIsFormValid(isFormFilled && !sexSelected && !roleSelected);
-  }, [editedCrew, sexSelected, roleSelected]);
 
   //handle input changes
   const handleChange = (event) => {
@@ -56,7 +46,11 @@ const UpdatePage = ({ data }) => {
     if (name === "force_sensitive") {
       setSaberRoleDisabled(!checked);
       setEditedCrew((prev) => {
-        return { ...prev, role: "" };
+        const newRole = prev.role === "Saber Specialist" ? "" : prev.role;
+        if (newRole === "") {
+          setRoleSelected(true);
+        }
+        return { ...prev, role: newRole };
       });
     }
   };
@@ -64,6 +58,19 @@ const UpdatePage = ({ data }) => {
   // handle update submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (editedCrew.age <= 0) {
+      toast.error("Age cannot be 0 or negative!");
+      return;
+    }
+    if (editedCrew.name === "") {
+      toast.error("Name cannot be empty!");
+      return;
+    }
+    if (sexSelected || roleSelected) {
+      toast.error("Sex and role must be selected!");
+      return;
+    }
+
     const { error } = await supabase
       .from("Crew")
       .update([editedCrew])
@@ -80,7 +87,7 @@ const UpdatePage = ({ data }) => {
         sex: "",
       });
       toast.success("Crew member updated!");
-      navigate("/barracks");
+      window.location = "/barracks";
     }
   };
 
@@ -94,7 +101,7 @@ const UpdatePage = ({ data }) => {
       console.log(error);
     }
     toast.success("Crew member deleted!");
-    navigate("/barracks");
+    window.location = "/barracks";
   };
 
   if (!crewmate) {
@@ -102,10 +109,10 @@ const UpdatePage = ({ data }) => {
   }
   return (
     <>
-      <h1 className="createRebel" style={{ width: "500px" }}>
+      <h1 className="updateRebel" style={{ width: "500px" }}>
         Update: {crewmate.name}{" "}
       </h1>
-      <form className="createRebel">
+      <form className="updateRebel">
         {/* Name text*/}
         <div className="mb-2">
           <label htmlFor="nameInput" className="form-label">
@@ -208,7 +215,6 @@ const UpdatePage = ({ data }) => {
           type="submit"
           value="Submit"
           onClick={handleSubmit}
-          disabled={!isFormValid}
           className="submitBtn mt-4"
           title="All fields must be filled"
         />

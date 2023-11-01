@@ -63,7 +63,10 @@ const Stats = ({ data }) => {
         <div className="progress">
           <div
             className="progress-bar"
-            style={{ width: `${progressBarWidth}%` }}
+            style={{
+              width: `${progressBarWidth}%`,
+              backgroundColor: forceUsersCount >= 5 ? "greenyellow" : "",
+            }}
             role="progressbar"
             aria-valuenow="0"
             aria-valuemin="0"

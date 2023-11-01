@@ -22,12 +22,12 @@ const App = () => {
 
   useEffect(() => {
     const fetchCrewmates = async () => {
-      const { data, error } = await supabase.from("Crew").select();
+      const { data } = await supabase
+        .from("Crew")
+        .select()
+        .order("created_at", { ascending: true });
 
-      if (error) {
-        throw error;
-      }
-
+      // set state of posts
       setCrewmates(data);
     };
     fetchCrewmates();

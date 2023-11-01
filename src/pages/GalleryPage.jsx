@@ -3,12 +3,12 @@ import Card from "../components/Card";
 import Mothma from "../assets/Mothma.png";
 import Stats from "../components/Stats";
 
-const Gallery = (props) => {
+const Gallery = ({ data }) => {
   const [crewmates, setCrewmates] = useState([]);
 
   useEffect(() => {
-    setCrewmates(props.data);
-  }, [props.data]);
+    setCrewmates(data);
+  }, [data]);
 
   return (
     <>
@@ -21,15 +21,7 @@ const Gallery = (props) => {
                 key={index}
                 style={{ width: "300px" }}
               >
-                <Card
-                  id={crewmate.id}
-                  name={crewmate.name}
-                  age={crewmate.age}
-                  sex={crewmate.sex}
-                  force_sensitive={crewmate.force_sensitive}
-                  role={crewmate.role}
-                  color={crewmate.color}
-                />
+                <Card data={crewmate} />
               </div>
             ))
           ) : (
