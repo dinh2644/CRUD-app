@@ -8,7 +8,7 @@ import HomePage from "./pages/HomePage";
 import UpdatePage from "./pages/UpdatePage";
 import Navbar from "./components/Navbar";
 import PageNotFound from "./pages/PageNotFound";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   BrowserRouter as Router,
@@ -27,10 +27,15 @@ const App = () => {
         .select()
         .order("created_at", { ascending: true });
 
-      // set state of posts
       setCrewmates(data);
     };
     fetchCrewmates();
+
+    const toastMessage = localStorage.getItem("toast");
+    if (toastMessage) {
+      toast.success(toastMessage);
+      localStorage.removeItem("toast");
+    }
   }, []);
 
   return (

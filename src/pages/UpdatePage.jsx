@@ -86,7 +86,8 @@ const UpdatePage = ({ data }) => {
         color: "#000000",
         sex: "",
       });
-      toast.success("Crew member updated!");
+
+      localStorage.setItem("toast", "Crew member updated!");
       window.location = "/barracks";
     }
   };
@@ -100,7 +101,7 @@ const UpdatePage = ({ data }) => {
     if (error) {
       console.log(error);
     }
-    toast.success("Crew member deleted!");
+    localStorage.setItem("toast", "Crew member deleted!");
     window.location = "/barracks";
   };
 

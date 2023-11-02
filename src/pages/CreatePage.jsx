@@ -73,7 +73,6 @@ const CreatePage = () => {
     if (error) {
       console.log(error);
     } else {
-      toast.success("Crew member created!");
       setCrew({
         name: "",
         force_sensitive: false,
@@ -82,6 +81,7 @@ const CreatePage = () => {
         color: "#000000",
         sex: "",
       });
+      localStorage.setItem("toast", "Crew member created!");
       window.location = "/barracks";
     }
   };
