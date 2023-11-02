@@ -1,8 +1,8 @@
-# Web Development Project 7 - Star Wars Battlefront 2 Rebel Edition 
+# Web Development Project 7 - *Star Wars Battlefront 2 Rebel Edition*
 
-Submitted by: Tu Dinh
+Submitted by: **Tu Dinh**
 
-This web app: Allows users to assemble their team of star wars rebels to face off the Galactic Empire. They can create, view, update, and delete members from their barracks.
+This web app: **Allows users to assemble their team of star wars rebels to face off the Galactic Empire. They can create, view, update, and delete members from their barracks.**
 
 Time spent: **7** hours spent in total
 
