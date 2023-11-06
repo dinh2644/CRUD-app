@@ -43,7 +43,7 @@ const CardInfoPage = ({ data }) => {
             </div>
             <div className="crewmateProps">
               {" "}
-              <span className="properties">Role:</span> {crewmate.sex}
+              <span className="properties">Sex:</span> {crewmate.sex}
             </div>
             <div className="crewmateProps">
               <span className="properties">Force User:</span>{" "}
